@@ -4,6 +4,7 @@ import StatusDot from "./ui/StatusDot.tsx";
 import ProgressBar from "./ui/ProgressBar.tsx";
 import { DIFFICULTY_COLORS, formatDate, percent, swatchFor } from "../lib/format.ts";
 import { STATUS } from "../hooks/useLogbook.ts";
+import { notePreview } from "../lib/richtext.ts";
 import type { Entry, Question, ResolvedPattern } from "../types.ts";
 
 interface PatternViewProps {
@@ -41,6 +42,7 @@ export default function PatternView({
       <ul className="grid gap-3">
         {pattern.questions.map((question) => {
           const entry = getEntry(question.key);
+          const preview = notePreview(entry.note);
           return (
             <li key={question.key}>
               <button
@@ -61,12 +63,7 @@ export default function PatternView({
                   {question.isCustom && <Tag color="#9BB8FF">your own</Tag>}
                 </div>
                 <div className="break-words font-display text-base sm:text-lg">{question.title}</div>
-                {entry.note && (
-                  <p className="mt-1 text-sm text-ink/75">
-                    {entry.note.slice(0, 140)}
-                    {entry.note.length > 140 ? "…" : ""}
-                  </p>
-                )}
+                {preview && <p className="mt-1 text-sm text-ink/75">{preview}</p>}
               </button>
             </li>
           );

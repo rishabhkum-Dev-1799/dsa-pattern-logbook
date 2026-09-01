@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import CodeEditor from "./CodeEditor.tsx";
+import NoteEditor from "./NoteEditor.tsx";
 import LanguagePicker from "./LanguagePicker.tsx";
 import Button from "./ui/Button.tsx";
 import Tag from "./ui/Tag.tsx";
@@ -162,13 +163,12 @@ export default function QuestionView({ question, entry, actions, onBack }: Quest
       <section className="nb-panel bg-cream p-4 sm:p-5">
         <h3 className="mb-3 font-display text-lg">My approach</h3>
         <div className="grid gap-3">
-          <textarea
-            className="nb-field"
-            rows={6}
-            placeholder="Expand right, shrink left when a duplicate shows up. Keep the last-seen index in a map so left jumps instead of crawling."
+          <NoteEditor
             value={note}
-            onChange={(event) => setNote(event.target.value)}
-            aria-label="Approach"
+            onChange={setNote}
+            placeholder="Expand right, shrink left when a duplicate shows up. Type 1. for steps, - for bullets, [] for a checklist."
+            ariaLabel="Approach"
+            minHeight="11rem"
           />
           <div className="grid gap-3 sm:grid-cols-3">
             <div className="sm:col-span-2">

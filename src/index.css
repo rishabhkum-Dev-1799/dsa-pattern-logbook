@@ -87,6 +87,124 @@
     }
   }
 
+  /* The TipTap note surface. Kept deliberately small: the notebook already
+     has its own type scale, and these only fill the gaps Tailwind's preflight
+     resets away (list markers, headings, code). */
+  .nb-prose {
+    font-size: 15px;
+    line-height: 1.55;
+  }
+
+  @media (max-width: 640px) {
+    .nb-prose {
+      font-size: 16px;
+    }
+  }
+
+  .nb-prose > * + * {
+    margin-top: 0.6em;
+  }
+
+  .nb-prose h3 {
+    @apply font-display text-lg;
+  }
+
+  .nb-prose h4 {
+    @apply font-display text-base;
+  }
+
+  .nb-prose ul,
+  .nb-prose ol {
+    padding-left: 1.5em;
+  }
+
+  .nb-prose ul {
+    list-style: disc;
+  }
+
+  .nb-prose ol {
+    list-style: decimal;
+  }
+
+  .nb-prose li > * + * {
+    margin-top: 0.3em;
+  }
+
+  .nb-prose li p {
+    margin: 0;
+  }
+
+  .nb-prose li + li {
+    margin-top: 0.2em;
+  }
+
+  /* Checklists carry their own box, so they lose the marker and the indent. */
+  .nb-prose ul[data-type="taskList"] {
+    list-style: none;
+    padding-left: 0;
+  }
+
+  .nb-prose ul[data-type="taskList"] li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5em;
+  }
+
+  .nb-prose ul[data-type="taskList"] li > label {
+    margin-top: 0.15em;
+    user-select: none;
+  }
+
+  .nb-prose ul[data-type="taskList"] input[type="checkbox"] {
+    @apply border-2 border-ink;
+    width: 1em;
+    height: 1em;
+    accent-color: #141210;
+    cursor: pointer;
+  }
+
+  .nb-prose ul[data-type="taskList"] li[data-checked="true"] > div {
+    @apply line-through opacity-60;
+  }
+
+  .nb-prose blockquote {
+    @apply border-l-3 border-ink pl-3 italic;
+  }
+
+  .nb-prose code {
+    @apply border-2 border-ink bg-cream px-1 font-mono;
+    font-size: 0.88em;
+  }
+
+  .nb-prose pre {
+    @apply border-3 border-ink bg-ink px-3 py-2 font-mono text-paper;
+    font-size: 0.88em;
+    overflow-x: auto;
+  }
+
+  /* A code block owns its styling; the inline rules must not double up. */
+  .nb-prose pre code {
+    @apply border-0 bg-transparent p-0 text-paper;
+    font-size: inherit;
+  }
+
+  .nb-prose hr {
+    @apply border-t-3 border-ink;
+  }
+
+  .nb-prose a {
+    @apply underline decoration-2 underline-offset-2;
+  }
+
+  /* Placeholder text, shown on the first line while the note is empty. */
+  .nb-prose p.is-editor-empty:first-child::before {
+    content: attr(data-placeholder);
+    color: #8a857c;
+    float: left;
+    height: 0;
+    pointer-events: none;
+  }
+
   .nb-tag {
     @apply border-2 border-ink px-2 py-0.5 text-[11px] font-bold;
   }
